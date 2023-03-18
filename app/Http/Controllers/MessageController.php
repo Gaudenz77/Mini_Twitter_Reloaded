@@ -69,7 +69,6 @@ class MessageController extends Controller
  
     public function delete($id) {
 
-
         // ask the database for the message with the ID that we got
         // as a parameter. It is the same ID that we used to
         // generate the links to the message details
@@ -78,7 +77,6 @@ class MessageController extends Controller
         // the Message-OBject that we get back from the
         // findOrFail function.
         $result = Message::findOrFail($id)->delete();
- 
  
         // after that we redirect to the message list again  
         return redirect('/messages');        

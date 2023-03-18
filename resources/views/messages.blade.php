@@ -1,17 +1,12 @@
 <!--extend layout master.blade.php -->
 @extends('layouts.master')
 
-
 <!--sets value for section title to "Mini Twitter" (section title is used as yield in messages.blade.php) -->
 @section('title', 'Mini Twitter')
-
-
-
 
 <!--starts section content, defines the title for the section and also defines some html for section content
 (html is between section... and endsection) section content is used as yield in messages.blade.php) -->
 @section('content')
-
 
 @if (Route::has('login'))
     <div class="col-sm-2">
@@ -30,8 +25,6 @@
         @endauth
     </div>
 @endif
-
-
 
 <div class="col-sm-4">
     <h2>Create new message: </h2>
@@ -52,7 +45,6 @@
         <button type="submit" class="btn btn-circle mt-3 text-center"><i class="fa-brands fa-twitter fa-3x fa-flip" style="--fa-animation-duration: 30s; --fa-animation-iteration-count: 1;"></i></button></div>
     </form>
 </div>
-
 
 <div class="col-sm-6">
     <h2 style="line-height: 50px">Recent messages:</h2>
@@ -88,9 +80,6 @@
 </div>
 
 <div class="text-end"><b>Date: {{date('d.m.Y')}}</b></div>
-
-
-
 
 @endsection
 
