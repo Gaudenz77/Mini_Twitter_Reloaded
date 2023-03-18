@@ -26,22 +26,8 @@
             <!-- hier wird der Wert von der section "content" eines blade templates ausgefüllt, welches dieses layout "extended" -->
             @yield('content')
             <!-- hier wird die php Funktion date() aufgerufen mit dem Format-Pattern 'd.m.Y' und im html ausgegeben-->
-         
         </div>
     </div>
-    {{-- <script>
-        document.querySelectorAll('.like-button').forEach(button => {
-            button.addEventListener('click', async () => {
-                const messageId = button.dataset.messageId;
-                const response = await fetch(`/message/${messageId}/like`, { method: 'POST' });
-                if (response.ok) {
-                    const likeCountElement = button.nextElementSibling;
-                    const likeCount = parseInt(likeCountElement.innerText);
-                    likeCountElement.innerText = likeCount + 1;
-                }
-            });
-        });
-    </script> --}}
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
 
