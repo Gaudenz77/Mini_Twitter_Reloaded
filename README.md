@@ -54,7 +54,6 @@
 ----
 ## Main Content:
 <div style="text-align:center; font-size:20px">
-
 [Github](https://github.com/Gaudenz77/Mini_Twitter_Reloaded_Breezefied)<br>
 </div>
 
