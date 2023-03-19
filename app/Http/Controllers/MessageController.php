@@ -46,7 +46,7 @@ class MessageController extends Controller
         // at the end we make a redirect to the url /messages
         // return redirect('/messages');        
 
-        return redirect('/');        
+        return redirect('/messages');        
     }
 
     public function details($id) {

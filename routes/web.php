@@ -21,6 +21,7 @@
     // if messages should be localhos change above to this:
     /* Route::get('/', [MessageController::class, 'showAll']); */
 
+
     Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
     Route::post('register', 'Auth\RegisterController@register');
 
