@@ -44,7 +44,9 @@ class MessageController extends Controller
         $message->save();
    
         // at the end we make a redirect to the url /messages
-        return redirect('/messages');        
+        // return redirect('/messages');        
+
+        return redirect('/');        
     }
 
     public function details($id) {
@@ -75,6 +77,7 @@ class MessageController extends Controller
  
         // after that we redirect to the message list again  
         return redirect('/messages');        
+        /* return redirect('/'); */        
     }
 
     public function like(Request $request) {

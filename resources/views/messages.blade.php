@@ -1,5 +1,5 @@
-<!--extend layout master.blade.php -->
-@extends('layouts.master')
+    <!--extend layout master.blade.php -->
+    @extends('layouts.master')
 
 <!--sets value for section title to "Mini Twitter" (section title is used as yield in messages.blade.php) -->
 @section('title', 'Mini Twitter')
