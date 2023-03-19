@@ -1,5 +1,5 @@
-    <!--extend layout master.blade.php -->
-    @extends('layouts.master')
+<!--extend layout master.blade.php -->
+@extends('layouts.master')
 
 <!--sets value for section title to "Mini Twitter" (section title is used as yield in messages.blade.php) -->
 @section('title', 'Mini Twitter')
@@ -72,7 +72,7 @@
                     <button type="submit" class="transparent-btn-down" style="margin-left: 15px;"><i class="fas fa-thumbs-down"></i></button>
                 </form>
                     {{$message->dislike_count}}
-                    <p class="createdAt">{{$message->created_at->diffForHumans()}}</p>
+                    <p class="createdAt">By: <b>{{ $message->user->name }}</b> , {{$message->created_at->diffForHumans()}}</p>
             </div>               
         </li>
     @endforeach

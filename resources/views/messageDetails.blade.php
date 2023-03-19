@@ -13,8 +13,9 @@ ts value for section title to "Mini Twitter" (section content is used in message
 @section('content')
 <h2>Message Details:</h2>
 
-<h3>{{$message->title}}</h3>
-<p>{{$message->content}}</p>
+<h4><b>{{$message->title}}</b></h4>
+<h3>{{$message->content}}</h3>
+<p>By: <b>{{ $message->user->name }}</b></p>
 <div><b>Date: {{date('d.m.Y')}}</b></div>
 
 <form action="/message/{{$message->id}}" method="post">
