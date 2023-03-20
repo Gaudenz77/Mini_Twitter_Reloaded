@@ -1,3 +1,4 @@
+
 <!--extend layout master.blade.php -->
 @extends('layouts.master')
 
@@ -11,11 +12,12 @@
 @if (Route::has('login'))
     <div class="col-sm-2">
         @auth
-            <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
+            <a href="{{ url('/dashboard') }}">Dashboard</a>
             <form action="{{ route('logout') }}" method="POST" class="inline">
                 @csrf
-                <button type="submit" class="btn btn-circlesmall mt-3 text-center"><i class="fa-solid fa-right-from-bracket fa-2x fa-flip" style="--fa-animation-iteration-count: 1;"></i></button>
+                <br><button type="submit" class="btn btn-circlesmall mt-3 text-center"><i class="fa-solid fa-right-from-bracket fa-2x fa-flip" style="--fa-animation-iteration-count: 1;"></i></button>
             </form>
+            
         @else
             <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
 
@@ -30,11 +32,11 @@
     <h2>Create new message: </h2>
     <form action="/create" method="post">
         <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="floatingInput" name="title" placeholder="Title" id="floatingInput">
+            <input type="text" class="form-control" id="floatingInput" name="title" placeholder="Title" id="floatingInput" required>
             <label for="floatingInput">Title</label>
         </div>
        <div class="form-floating">
-        <textarea class="form-control" name="content" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px"></textarea>
+        <textarea class="form-control" name="content" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px" required></textarea>
         <label for="floatingTextarea">Comments</label>
         <input type="hidden" value="0" name="like_count">
         <input type="hidden" value="0" name="dislike_count">
@@ -53,33 +55,44 @@
        gets from MessageController.php. for each element of the loop which
        we call $message we print the properties (title, content
        and created_at in an <li> element -->
-    @foreach ($messagesList as $message) 
+        @foreach ($messagesList as $message)
         <li class="messagesList">
             <b><a href="/message/{{$message->id}}">{{$message->title}}:</a></b><br>
-                {{$message->content}} 
+            {{$message->content}} 
             <div class="form-icons mx-2 md-mx-auto">
-                <form action="/message/{{$message->id}}/like" method="POST" class="">
-                    @csrf
-                    <input type="hidden" name="message_id" value="{{$message->id}}">
-                    <input type="hidden" value="0" name="like_count">
-                    <button type="submit" class="transparent-btn-up" ><i class="fas fa-thumbs-up"></i></button>
-                </form>
-                    {{$message->like_count}}
-                <form action="/message/{{$message->id}}/dislike" method="POST" class="">
-                    @csrf
-                    <input type="hidden" name="message_id" value="{{$message->id}}">
-                    <input type="hidden" value="0" name="dislike_count">
-                    <button type="submit" class="transparent-btn-down" style="margin-left: 15px;"><i class="fas fa-thumbs-down"></i></button>
-                </form>
-                    {{$message->dislike_count}}
-                    <p class="createdAt">By: <b>{{ $message->user->name }}</b> , {{$message->created_at->diffForHumans()}}</p>
-            </div>               
-        </li>
+                <div class="form-icons mx-2 md-mx-auto">
+                    <form action="/message/{{$message->id}}/like" method="POST" class="">
+                        @csrf
+                        <input type="hidden" name="message_id" value="{{$message->id}}">
+                        <input type="hidden" value="0" name="like_count">
+                        <button type="submit" class="transparent-btn-up" ><i class="fas fa-thumbs-up"></i></button>
+                    </form>
+                        {{$message->like_count}}
+                    <form action="/message/{{$message->id}}/dislike" method="POST" class="">
+                        @csrf
+                        <input type="hidden" name="message_id" value="{{$message->id}}">
+                        <input type="hidden" value="0" name="dislike_count">
+                        <button type="submit" class="transparent-btn-down" style="margin-left: 15px;"><i class="fas fa-thumbs-down"></i></button>
+                    </form>
+                        {{$message->dislike_count}}
+            <p class="createdAt">By: <b>{{ $message->user->name }}</b> , {{$message->created_at->diffForHumans()}}</p>         
+            </div>
+        </div>
+    
+    
     @endforeach
+    
     </ul>
 </div>
+{{-- <form action="{{ route('messages.reply', $message->id) }}" method="post">
+    @csrf
+    <div class="form-group">
+        <textarea name="content" class="form-control" rows="3" placeholder="Enter your reply"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Reply</button>
+</form> --}}
+
 
 <div class="text-end"><b>Date: {{date('d.m.Y')}}</b></div>
 
 @endsection
-

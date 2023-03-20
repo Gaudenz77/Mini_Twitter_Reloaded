@@ -51,6 +51,17 @@ class MessageController extends Controller
         return redirect('/messages');        
     }
 
+    public function reply(Request $request, $id)
+    {
+        $message = new Message();
+        $message->content = $request->input('content');
+        $message->user_id = $request->user()->id;
+        $message->parent_id = $id;
+        $message->save();
+
+        return redirect()->back();
+    }
+
     public function details($id) {
 
         // ask the database for the message with the ID that we got
@@ -87,6 +98,7 @@ class MessageController extends Controller
         $message->increment('like_count');
         return redirect('/messages');
     }
+    
     public function dislike(Request $request) {
         $message = Message::findOrFail($request->message_id);
         $message->increment('dislike_count');

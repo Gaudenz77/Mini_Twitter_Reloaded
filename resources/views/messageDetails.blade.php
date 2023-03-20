@@ -14,11 +14,12 @@ ts value for section title to "Mini Twitter" (section content is used in message
 <h4><b>{{$message->title}}</b></h4>
 <h3>{{$message->content}}</h3>
 <p>By: <b>{{ $message->user->name }}</b></p>
-<div><b>Date: {{date('d.m.Y')}}</b></div>
+{{-- <div><b>Date: {{date('d.m.Y')}}</b></div> --}}
+
 
 <form action="/message/{{$message->id}}" method="post">
     @csrf
     @method('delete')
-    <button type="submit" class="btn btn-circlesmall mt-3 text-center"><i class="fa-solid fa-trash-can fa-2x fa-flip" style="--fa-animation-duration: 30s; --fa-animation-iteration-count: 1;"></i></button></div>
+    <button type="submit" class="btn btn-circlesmall mt-3 text-center"><i class="fa-solid fa-trash-can fa-2x fa-flip" style="--fa-animation-duration: 30s; --fa-animation-iteration-count: 1;"></i></button>
   </form>
 @endsection
