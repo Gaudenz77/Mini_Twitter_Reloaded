@@ -79,3 +79,12 @@ html, body {
 .form-icons p {
     margin-left: 5px;
 }
+.reply-marker {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    font-size: 1.2em;
+    margin-right: 0.5em;
+    text-align: center;
+    color: #ccc;
+}   

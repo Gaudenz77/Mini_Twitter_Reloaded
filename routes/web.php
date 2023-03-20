@@ -50,7 +50,10 @@
 
     Route::post('/message/{id}/dislike', [MessageController::class, 'dislike']);
 
-    Route::post('/messages/reply', [MessageController::class, 'reply'])->name('messages.reply');
+    Route::post('/messages/reply/{id}', [MessageController::class, 'reply'])->name('messages.reply');
+
+
+    /* Route::get('/messages', 'MessageController@messages')->name('messages'); */
 
 
 

@@ -8,6 +8,12 @@ use App\Models\Message;
 
 class MessageController extends Controller
 {
+
+    public function __construct()
+        {
+            $this->middleware('auth');
+        }
+
     public function showAll() {
 
         // gets all the entries from table messages
@@ -25,9 +31,11 @@ class MessageController extends Controller
        // through which we cann pass the $messages array to the view.
        // we can pass it as an optional second paramter (
  // associative array)
- $messages = Message::with('user')->orderByDesc('created_at')->get();
-       return view('messages', ['messagesList' => $messages]);
-    }
+        $messages = Message::with('user')->orderByDesc('created_at')->get();
+
+        return view('messages', ['messagesList' => $messages]);
+        
+        }
 
     public function create(Request $request) {
 
@@ -53,10 +61,15 @@ class MessageController extends Controller
 
     public function reply(Request $request, $id)
     {
+        // Retrieve the parent message
+        $parentMessage = Message::findOrFail($id);
+
+        // Create a new message with the parent message as the parent_id
         $message = new Message();
+        $message->title = $request->input('title');
         $message->content = $request->input('content');
         $message->user_id = $request->user()->id;
-        $message->parent_id = $id;
+        $message->parent_id = $parentMessage->id;
         $message->save();
 
         return redirect()->back();
@@ -105,9 +118,6 @@ class MessageController extends Controller
         return redirect('/messages');
     }
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    
     
 }

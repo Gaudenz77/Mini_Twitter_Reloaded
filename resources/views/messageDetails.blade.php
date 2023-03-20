@@ -15,7 +15,15 @@ ts value for section title to "Mini Twitter" (section content is used in message
 <h3>{{$message->content}}</h3>
 <p>By: <b>{{ $message->user->name }}</b></p>
 {{-- <div><b>Date: {{date('d.m.Y')}}</b></div> --}}
+<form action="{{ route('messages.reply', $message->id) }}" method="post">
 
+  @csrf
+  <div class="form-group">
+      <input type="text" class="form-control" id="floatingInput" name="title" placeholder="Title" id="floatingInput" required>
+      <textarea name="content" class="form-control" rows="3" placeholder="Enter your reply"></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Reply</button>
+</form>
 
 <form action="/message/{{$message->id}}" method="post">
     @csrf
