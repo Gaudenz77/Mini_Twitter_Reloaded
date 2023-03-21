@@ -1,3 +1,12 @@
+
+/* toggle start---------------- */
+
+/* function toggleDarkMode() {
+    alert('Dark Mode');
+    document.body.classList.toggle('dark-mode');
+    } */
+
+
 // Listen for click events on all reply buttons
 document.querySelectorAll('.reply-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -19,9 +28,4 @@ document.querySelector('#cancel-btn').addEventListener('click', () => {
     document.querySelector('#reply-form').style.display = 'none';
 });
 
-
-    /* toggle start---------------- */
-
-    function toggleDarkMode() {
-        document.body.classList.toggle('dark-mode');
-      }
+/* -------------------------------- */

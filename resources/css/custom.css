@@ -1,8 +1,18 @@
-body {
+/* TOGGLE ================================================================= */
+
+/* In any other CSS files */
+body.dark-mode .some-element {
+    /* Styles for elements that need to be updated for dark mode */
+  
+    
+  }
+  
+
+body.dark-mode body {
     font-family: 'Poppins', sans-serif;
 }
 
-html, body {
+body.dark-mode html, body {
     font-family: 'Poppins', sans-serif;
   }
 
@@ -19,6 +29,13 @@ html, body {
     border-bottom: #087990 2px solid;
 }
 
+body.dark-mode .messagesList {
+    position:relative;
+    left:10px;
+    list-style-position: inside;
+    border-bottom: #f3a81c 2px solid;
+}
+
 .btn-circle {
     width: 5rem;
     height: 5rem;
@@ -26,10 +43,25 @@ html, body {
     padding: 8px 8px;
     border-radius: 50%;
     color:#087990;
-    background-color: rgb(123, 234, 221);
     text-align: center;
     margin-bottom: 15px; 
     box-shadow: -3px 3px 3px 3px rgb(141, 141, 141);
+}
+
+body.dark-mode .btn-circle {
+    color: #f3a81c;
+}
+
+.titlelogo {
+    color:#087990;
+}
+
+body.dark-mode .titlelogo {
+    color: #f3a81c;
+}
+
+.btn {
+    
 }
 
 .btn-circlesmall {
@@ -44,6 +76,12 @@ html, body {
     box-shadow: -3px 3px 3px 3px rgb(141, 141, 141);
 }
 
+body.dark-mode .btn-circlesmall {
+
+    color: #f3a81c;
+
+}
+
 .transparent-btn-up {
     background-color: transparent;
     border: none;
@@ -51,6 +89,12 @@ html, body {
     color: #087990;
     position:relative;
     top:-1px;
+}
+
+body.dark-mode .transparent-btn-up {
+
+    color: #f3a81c;
+
 }
 
 .transparent-btn-down {
@@ -62,10 +106,19 @@ html, body {
     left:0px;
     top:1px;
 }
+
+body.dark-mode .transparent-btn-down {
+    color: #f3a81c;
+}
  
 .transparent-btn:hover {
     color: #087990;
 }
+
+body.dark-mode .transparent-btn:hover {
+    color: #f3a81c;
+}
+
 
 .form-icons {
     display: flex;
@@ -79,7 +132,8 @@ html, body {
 .form-icons p {
     margin-left: 5px;
 }
-.reply-marker {
+
+body.dark-mode .reply-marker {
     display: inline-block;
     width: 1em;
     height: 1em;
@@ -89,28 +143,19 @@ html, body {
     color: #ccc;
 }   
 
-/* TOGGLE ================================================================= */
-
-/* In any other CSS files */
-body.dark-mode .some-element {
-  /* Styles for elements that need to be updated for dark mode */
-
-  
-}
-
 /* Dark mode styles for form elements */
-.form-control-dark {
+body.dark-mode .form-control-dark {
     background-color: #222;
     border-color: #666;
-    color: #fff;
+    color: #000;
   }
   
-  .form-check-input-dark:checked {
+  body.dark-mode .form-check-input-dark:checked {
     background-color: #fff;
     border-color: #666;
     color: #000;
   }
   
-  .form-check-label-dark {
+  body.dark-mode .form-check-label-dark {
     color: #fff;
   }

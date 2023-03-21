@@ -1,4 +1,4 @@
-<?php
+{{-- 
 <!--extend layout master.blade.php -->
 @extends('layouts.master')
 
@@ -200,3 +200,5 @@
       }
  </script>
 <!-- toggle mode script end-->
+
+ --}}

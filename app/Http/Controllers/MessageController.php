@@ -75,6 +75,8 @@ class MessageController extends Controller
             return redirect()->back();
         }
 
+        
+
     public function details($id) {
 
         // ask the database for the message with the ID that we got
@@ -117,7 +119,4 @@ class MessageController extends Controller
         $message->increment('dislike_count');
         return redirect('/messages');
     }
-
-    
-    
 }

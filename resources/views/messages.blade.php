@@ -31,13 +31,13 @@
 <div class="col-sm-4">
     <h2>Create new message: </h2>
     <form action="/create" method="post">
-        <div class="form-floating mb-3">
+        <div class="form-group mb-3">
             <input type="text" class="form-control" id="floatingInput" name="title" placeholder="Title" id="floatingInput" required>
-            <label for="floatingInput">Title</label>
+            
         </div>
-       <div class="form-floating">
+       <div class="form-group">
         <textarea class="form-control" name="content" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px" required></textarea>
-        <label for="floatingTextarea">Comments</label>
+        
         <input type="hidden" value="0" name="like_count">
         <input type="hidden" value="0" name="dislike_count">
        </div>
@@ -145,10 +145,4 @@
 </div>
 <!-- reply form end-->
 
-<!-- toggle mode script start -->
- <script>
-      function toggleDarkMode() {
-        document.body.classList.toggle('dark-mode');
-      }
- </script>
-<!-- toggle mode script end-->
+
