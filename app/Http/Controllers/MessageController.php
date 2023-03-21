@@ -33,7 +33,7 @@ class MessageController extends Controller
  // associative array)
         $messages = Message::with('user')->orderByDesc('created_at')->get();
 
-        return view('messages', ['messagesList' => $messages]);
+        return view('messages', ['messagesList' => $messages, 'parentId' => null]);
         
         }
 
@@ -63,7 +63,7 @@ class MessageController extends Controller
         {
             // Retrieve the parent message
             $parentMessage = Message::findOrFail($id);
-    
+
             // Create a new message with the parent message as the parent_id
             $message = new Message();
             $message->title = $request->input('title');
@@ -71,9 +71,26 @@ class MessageController extends Controller
             $message->user_id = $request->user()->id;
             $message->parent_id = $parentMessage->id;
             $message->save();
-    
+
             return redirect()->back();
+            return redirect()->route('messages.reply', ['id' => $id]);
         }
+        /* public function reply(Request $request, $id)
+        {
+            // Retrieve the parent message
+            $parentMessage = Message::findOrFail($id);
+
+            // Create a new message with the parent message as the parent_id
+            $reply = new Message();
+            $reply->title = $request->input('title');
+            $reply->content = $request->input('content');
+            $reply->user_id = $request->user()->id;
+            $reply->parent_id = $request->input('parent_id');
+            $reply->save();
+            
+            
+            return redirect()->route('messages.reply', ['id' => $id]);
+        } */
 
         
 

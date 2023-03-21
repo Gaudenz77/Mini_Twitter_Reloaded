@@ -52,6 +52,10 @@
 
     Route::post('/messages/reply/{id}', [MessageController::class, 'reply'])->name('messages.reply');
 
+    /* Route::get('/messages/reply/{id}', [MessageController::class, 'show'])->name('messages.show'); */
+
+
+
 
     /* Route::get('/messages', 'MessageController@messages')->name('messages'); */
 

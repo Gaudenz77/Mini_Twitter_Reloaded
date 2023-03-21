@@ -11,11 +11,12 @@ class Message extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+    return $this->belongsTo(User::class);
     }
 
-    public function replies()
+    public function parent()
     {
-        return $this->hasMany(Message::class, 'parent_id');
+        /* return $this->belongsTo(Message::class, 'parent_id'); */
+        return $this->belongsTo(Message::class, 'parent_id')->default(null);
     }
 }

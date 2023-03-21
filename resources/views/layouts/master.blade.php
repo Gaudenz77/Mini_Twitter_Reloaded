@@ -21,7 +21,7 @@
             {{-- <div class="row justify-content-center alert alert-info" role="alert"> --}}
             <!-- hier wird auch der Wert von der section "title" eines blade templates ausgefüllt, welches dieses layout "extended" -->
             <h1><i class="fa-brands fa-twitter fa-spin titlelogo" style="--fa-animation-iteration-count: 1;"></i><a href="/messages">@yield('title')</a></h1>
-            <p><button class="btn btn-info" onclick="toggleDarkMode()">Toggle Dark Mode</button></p>
+            <p><button class="btn btn-outline-secondary" onclick="toggleDarkMode()">Toggle Dark Mode</button></p>
             <!-- hier wird der Wert von der section "content" eines blade templates ausgefüllt, welches dieses layout "extended" -->
             @yield('content')
             <!-- hier wird die php Funktion date() aufgerufen mit dem Format-Pattern 'd.m.Y' und im html ausgegeben-->

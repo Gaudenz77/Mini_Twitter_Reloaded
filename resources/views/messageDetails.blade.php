@@ -15,12 +15,13 @@ ts value for section title to "Mini Twitter" (section content is used in message
 <h3>{{$message->content}}</h3>
 <p><a href="#" class="reply-btn" data-message-id="{{ $message->id }}">Reply</a></p>
 
+@if ($message->user)
+<p> <b>{{ $message->user->name }}</b></p>
+@endif    
 
-
-<p>By: <b>{{ $message->user->name }}</b></p>
-{{-- <div><b>Date: {{date('d.m.Y')}}</b></div> --}}
+<!-- reply form start-->
 <div id="reply-container" style="display: none;">
-  <form id="reply-form" action="{{ route('messages.reply', $message->id) }}" method="post">
+  <form id="reply-form" action="{{ route('messages.reply', ['id' => $message->id]) }}" method="POST">
       @csrf
       <input type="hidden" name="parent_id" id="parent-id">
       <div class="form-group">
@@ -31,4 +32,12 @@ ts value for section title to "Mini Twitter" (section content is used in message
       <button type="button" class="btn btn-secondary" id="cancel-btn">Cancel</button>
   </form>
 </div>
+<!-- reply form end-->
+
+<form action="/message/{{$message->id}}" method="post">
+    @csrf
+    @method('delete')
+    <button type="submit" class="btn btn-circlesmall mt-3 text-center"><i class="fa-solid fa-trash-can fa-2x fa-flip" style="--fa-animation-duration: 30s; --fa-animation-iteration-count: 1;"></i></button>
+  </form>
 @endsection
+

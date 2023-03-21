@@ -48,49 +48,6 @@
     </form>
 </div>
 
-{{-- <div class="col-sm-6">
-    <h2 style="line-height: 50px">Recent messages:</h2>
-    <ul>
-<!-- loops through the $messages, that this blade template
-       gets from MessageController.php. for each element of the loop which
-       we call $message we print the properties (title, content
-       and created_at in an <li> element -->
-        @foreach ($messagesList as $message)
-        <li class="messagesList">
-            <b><a href="/message/{{$message->id}}">{{$message->title}}:</a></b><br>
-            {{$message->content}} 
-            <div class="form-icons mx-2 md-mx-auto">
-                <div class="form-icons mx-2 md-mx-auto">
-                    <form action="/message/{{$message->id}}/like" method="POST" class="">
-                        @csrf
-                        <input type="hidden" name="message_id" value="{{$message->id}}">
-                        <input type="hidden" value="0" name="like_count">
-                        <button type="submit" class="transparent-btn-up" ><i class="fas fa-thumbs-up"></i></button>
-                    </form>
-                        {{$message->like_count}}
-                    <form action="/message/{{$message->id}}/dislike" method="POST" class="">
-                        @csrf
-                        <input type="hidden" name="message_id" value="{{$message->id}}">
-                        <input type="hidden" value="0" name="dislike_count">
-                        <button type="submit" class="transparent-btn-down" style="margin-left: 15px;"><i class="fas fa-thumbs-down"></i></button>
-                    </form>
-                        {{$message->dislike_count}}
-            <p class="createdAt">By: <b>{{ $message->user->name }}</b> , {{$message->created_at->diffForHumans()}}</p>         
-            </div>
-        </div>
-    @endforeach
-    </ul>
-</div>
-
-<form action="{{ route('messages.reply', $message->id) }}" method="post">
-    @csrf
-    <div class="form-group">
-        <input type="text" class="form-control" id="floatingInput" name="title" placeholder="Title" id="floatingInput" required>
-        <textarea name="content" class="form-control" rows="3" placeholder="Enter your reply"></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">Reply</button>
-</form> --}}
-
 <!-- Display each message -->
 <div class="col-sm-6">
     <h2 style="line-height: 50px">Recent messages:</h2>
@@ -118,9 +75,12 @@
                 <input type="hidden" value="0" name="dislike_count">
                 <button type="submit" class="transparent-btn-down" style="margin-left: 15px;"><i class="fas fa-thumbs-down"></i></button>
             </form>
-                {{$message->dislike_count}}
-        <p class="createdAt">By: <b>{{ $message->user->name }}</b> , {{$message->created_at->diffForHumans()}}</p>           
+            
+                {{$message->dislike_count}}     
         </div>
+        <div class="editor mb-2 py-3">@if ($message->user)
+            <p class="createdAt">By: <b>{{ $message->user->name }}</b> , {{$message->created_at->diffForHumans()}}</p>
+            @endif    </div>
     </li>
 @endforeach
     </ul>
@@ -132,17 +92,15 @@
 
 <!-- reply form start-->
 <div id="reply-container" style="display: none;">
-    <form id="reply-form" action="{{ route('messages.reply', $message->id) }}" method="post">
+    <form id="reply-form" action="{{ route('messages.reply', ['id' => $message->id]) }}" method="POST">
         @csrf
         <input type="hidden" name="parent_id" id="parent-id">
-        <div class="form-group">
-            <input type="text" class="form-control" id="floatingInput" name="title" placeholder="Title" id="floatingInput" required>
+        <div class="form-group mb-3">
+            <input type="text" class="form-control mb-3" id="floatingInput" name="title" placeholder="Title" id="floatingInput" required>
             <textarea name="content" class="form-control" rows="3" placeholder="Enter your reply"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Reply</button>
-        <button type="button" class="btn btn-secondary" id="cancel-btn">Cancel</button>
+        <button type="submit" class="btn btn-outline-primary">Reply</button>
+        <button type="button" class="btn btn-outline-secondary" id="cancel-btn">Cancel</button>
     </form>
 </div>
 <!-- reply form end-->
-
-
