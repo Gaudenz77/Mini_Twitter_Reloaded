@@ -51,7 +51,7 @@
 {{-- <div class="col-sm-6">
     <h2 style="line-height: 50px">Recent messages:</h2>
     <ul>
-    <!-- loops through the $messages, that this blade template
+<!-- loops through the $messages, that this blade template
        gets from MessageController.php. for each element of the loop which
        we call $message we print the properties (title, content
        and created_at in an <li> element -->
@@ -82,9 +82,7 @@
     </ul>
 </div>
 
-
 <form action="{{ route('messages.reply', $message->id) }}" method="post">
-
     @csrf
     <div class="form-group">
         <input type="text" class="form-control" id="floatingInput" name="title" placeholder="Title" id="floatingInput" required>
@@ -102,37 +100,37 @@
        we call $message we print the properties (title, content
        and created_at in an <li> element -->
 @foreach($messagesList as $message)
-<li class="messagesList">
+    <li class="messagesList">
         <b><a href="/message/{{$message->id}}">{{$message->title}}:</a></b><br>
         <p>{{ $message->content }}</p>
-        <div class="form-icons mx-2 md-mx-auto">
-            <div class="form-icons mx-2 md-mx-auto">
-                <form action="/message/{{$message->id}}/like" method="POST" class="">
-                    @csrf
-                    <input type="hidden" name="message_id" value="{{$message->id}}">
-                    <input type="hidden" value="0" name="like_count">
-                    <button type="submit" class="transparent-btn-up" ><i class="fas fa-thumbs-up"></i></button>
-                </form>
-                    {{$message->like_count}}
-                <form action="/message/{{$message->id}}/dislike" method="POST" class="">
-                    @csrf
-                    <input type="hidden" name="message_id" value="{{$message->id}}">
-                    <input type="hidden" value="0" name="dislike_count">
-                    <button type="submit" class="transparent-btn-down" style="margin-left: 15px;"><i class="fas fa-thumbs-down"></i></button>
-                </form>
-                    {{$message->dislike_count}}
-        <p class="createdAt">By: <b>{{ $message->user->name }}</b> , {{$message->created_at->diffForHumans()}}</p>         
-        
-    
         <p><a href="#" class="reply-btn" data-message-id="{{ $message->id }}">Reply</a></p>
-            </div>
+        <div class="form-icons mx-2 md-mx-auto">
+            <form action="/message/{{$message->id}}/like" method="POST" class="">
+                @csrf
+                <input type="hidden" name="message_id" value="{{$message->id}}">
+                <input type="hidden" value="0" name="like_count">
+                <button type="submit" class="transparent-btn-up" ><i class="fas fa-thumbs-up"></i></button>
+            </form>
+                {{$message->like_count}}
+            <form action="/message/{{$message->id}}/dislike" method="POST" class="">
+                @csrf
+                <input type="hidden" name="message_id" value="{{$message->id}}">
+                <input type="hidden" value="0" name="dislike_count">
+                <button type="submit" class="transparent-btn-down" style="margin-left: 15px;"><i class="fas fa-thumbs-down"></i></button>
+            </form>
+                {{$message->dislike_count}}
+        <p class="createdAt">By: <b>{{ $message->user->name }}</b> , {{$message->created_at->diffForHumans()}}</p>           
         </div>
     </li>
 @endforeach
-    
-</ul>
+    </ul>
 </div>
-<!-- Reply form -->
+
+<div class="text-end"><b>Date: {{date('d.m.Y')}}</b></div>
+
+@endsection
+
+<!-- reply form start-->
 <div id="reply-container" style="display: none;">
     <form id="reply-form" action="{{ route('messages.reply', $message->id) }}" method="post">
         @csrf
@@ -145,33 +143,12 @@
         <button type="button" class="btn btn-secondary" id="cancel-btn">Cancel</button>
     </form>
 </div>
+<!-- reply form end-->
 
-<!-- JavaScript code -->
-<script>
-    // Listen for click events on all reply buttons
-document.querySelectorAll('.reply-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-        // Get the ID of the message being replied to
-        const messageId = btn.getAttribute('data-message-id');
-        // Set the parent ID of the reply form to the message ID
-        document.querySelector('#parent-id').value = messageId;
-        // Insert the reply form below the message
-        const message = btn.parentNode;
-        message.appendChild(document.querySelector('#reply-form'));
-        // Show the reply form
-        document.querySelector('#reply-form').style.display = 'block';
-    });
-});
-
-// Listen for click events on the cancel button
-document.querySelector('#cancel-btn').addEventListener('click', () => {
-    // Hide the reply form
-    document.querySelector('#reply-form').style.display = 'none';
-});
-</script>
-
-
-<div class="text-end"><b>Date: {{date('d.m.Y')}}</b></div>
-
-@endsection
-
+<!-- toggle mode script start -->
+ <script>
+      function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+      }
+ </script>
+<!-- toggle mode script end-->
