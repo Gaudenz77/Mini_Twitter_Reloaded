@@ -6,6 +6,7 @@
     document.body.classList.toggle('dark-mode');
     } */
 
+   /*  const replyForm = document.querySelector('#reply-form'); */
 
 // Listen for click events on all reply buttons
 document.querySelectorAll('.reply-btn').forEach(btn => {

@@ -16,7 +16,8 @@
     </head>
 
 <body class="antialiased">
-    <div class="container-fluid">
+<main>
+    <div class="container">
         <div class="row text-center my-3">
             <div class="col-sm-12 mb-3 bg-info">
                 {{-- <div class="ml-4 text-center text-sm text-gray-500 dark:text-gray-400 sm:text-right sm:ml-0"> --}}     
@@ -44,8 +45,7 @@
             <div class="col-sm-12 mb-3">Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})</div>
         </div>
     </div>
-{{-- <div class="ml-4 text-center text-sm text-gray-500 dark:text-gray-400 sm:text-right sm:ml-0">
-    Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
-</div> --}}
-    </body>
+</main>
+    
+</body>
 </html>

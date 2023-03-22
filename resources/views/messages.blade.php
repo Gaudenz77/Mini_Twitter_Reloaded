@@ -18,12 +18,12 @@
                 <br><button type="submit" class="btn btn-circlesmall mt-3 text-center"><i class="fa-solid fa-right-from-bracket fa-2x fa-flip" style="--fa-animation-iteration-count: 1;"></i></button>
             </form>
             
-        @else
+@else
             <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
 
             @if (Route::has('register'))
                 <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
-            @endif
+@endif
         @endauth
     </div>
 @endif
@@ -42,7 +42,7 @@
         <input type="hidden" value="0" name="dislike_count">
        </div>
        <!-- this blade directive is necessary for all form posts somewhere in between the form tags -->
-       @csrf
+    @csrf
        <div class="sender text-center">
         <button type="submit" class="btn btn-circle mt-3 text-center"><i class="fa-brands fa-twitter fa-3x fa-flip" style="--fa-animation-duration: 30s; --fa-animation-iteration-count: 1;"></i></button></div>
     </form>
@@ -56,33 +56,37 @@
        gets from MessageController.php. for each element of the loop which
        we call $message we print the properties (title, content
        and created_at in an <li> element -->
-@foreach($messagesList as $message)
-    <li class="messagesList">
-        <b><a href="/message/{{$message->id}}">{{$message->title}}:</a></b><br>
-        <p>{{ $message->content }}</p>
-        <p><a href="#" class="reply-btn" data-message-id="{{ $message->id }}">Reply</a></p>
-        <div class="form-icons mx-2 md-mx-auto">
-            <form action="/message/{{$message->id}}/like" method="POST" class="">
+    @forelse($messagesList as $message)
+        <li class="messagesList">
+            <b><a href="/message/{{$message->id}}">{{$message->title}}:</a></b><br>
+            <p>{{ $message->content }}</p>
+            <p><a href="#" class="reply-btn" data-message-id="{{ $message->id }}">Reply</a></p>
+            <div class="form-icons mx-2 md-mx-auto">
+                <form action="/message/{{$message->id}}/like" method="POST" class="">
                 @csrf
-                <input type="hidden" name="message_id" value="{{$message->id}}">
-                <input type="hidden" value="0" name="like_count">
-                <button type="submit" class="transparent-btn-up" ><i class="fas fa-thumbs-up"></i></button>
-            </form>
-                {{$message->like_count}}
-            <form action="/message/{{$message->id}}/dislike" method="POST" class="">
-                @csrf
-                <input type="hidden" name="message_id" value="{{$message->id}}">
-                <input type="hidden" value="0" name="dislike_count">
-                <button type="submit" class="transparent-btn-down" style="margin-left: 15px;"><i class="fas fa-thumbs-down"></i></button>
-            </form>
-            
-                {{$message->dislike_count}}     
-        </div>
-        <div class="editor mb-2 py-3">@if ($message->user)
-            <p class="createdAt">By: <b>{{ $message->user->name }}</b> , {{$message->created_at->diffForHumans()}}</p>
-            @endif    </div>
-    </li>
-@endforeach
+                    <input type="hidden" name="message_id" value="{{$message->id}}">
+                    <input type="hidden" value="0" name="like_count">
+                    <button type="submit" class="transparent-btn-up" ><i class="fas fa-thumbs-up"></i></button>
+                </form>
+                    {{$message->like_count}}
+                <form action="/message/{{$message->id}}/dislike" method="POST" class="">
+                    @csrf
+                    <input type="hidden" name="message_id" value="{{$message->id}}">
+                    <input type="hidden" value="0" name="dislike_count">
+                    <button type="submit" class="transparent-btn-down" style="margin-left: 15px;"><i class="fas fa-thumbs-down"></i></button>
+                </form>
+                
+                    {{$message->dislike_count}}     
+            </div>
+            <div class="editor mb-2 py-3">
+    @if ($message->user)
+                <p class="createdAt">By: <b>{{ $message->user->name }}</b> , {{$message->created_at->diffForHumans()}}</p>
+    @endif
+            </div>
+        </li>
+    @empty
+        <li class="messagesList">No messages yet.</li>
+    @endforelse 
     </ul>
 </div>
 
@@ -91,7 +95,8 @@
 @endsection
 
 <!-- reply form start-->
-<div id="reply-container" style="display: none;">
+{{-- <div id="reply-container" style="display: block;">
+    @if ($message->id)
     <form id="reply-form" action="{{ route('messages.reply', ['id' => $message->id]) }}" method="POST">
         @csrf
         <input type="hidden" name="parent_id" id="parent-id">
@@ -102,5 +107,5 @@
         <button type="submit" class="btn btn-outline-primary">Reply</button>
         <button type="button" class="btn btn-outline-secondary" id="cancel-btn">Cancel</button>
     </form>
-</div>
+</div> --}}
 <!-- reply form end-->

@@ -2,12 +2,11 @@
 
 /* In any other CSS files */
 body.dark-mode .some-element {
+
     /* Styles for elements that need to be updated for dark mode */
-  
-    
+
   }
   
-
 body.dark-mode body {
     font-family: 'Poppins', sans-serif;
 }
@@ -77,9 +76,7 @@ body.dark-mode .titlelogo {
 }
 
 body.dark-mode .btn-circlesmall {
-
     color: #f3a81c;
-
 }
 
 .transparent-btn-up {
@@ -92,9 +89,7 @@ body.dark-mode .btn-circlesmall {
 }
 
 body.dark-mode .transparent-btn-up {
-
     color: #f3a81c;
-
 }
 
 .transparent-btn-down {
@@ -118,7 +113,6 @@ body.dark-mode .transparent-btn-down {
 body.dark-mode .transparent-btn:hover {
     color: #f3a81c;
 }
-
 
 .form-icons {
     display: flex;
@@ -150,12 +144,26 @@ body.dark-mode .form-control-dark {
     color: #000;
   }
   
-  body.dark-mode .form-check-input-dark:checked {
+body.dark-mode .form-check-input-dark:checked {
     background-color: #fff;
     border-color: #666;
     color: #000;
   }
   
-  body.dark-mode .form-check-label-dark {
+body.dark-mode .form-check-label-dark {
     color: #fff;
   }
+
+.btn-outline-secondary {
+    --bs-btn-color: #087990;
+    --bs-btn-border-color: #087990;
+
+  }
+
+body.dark-mode .btn-outline-secondary {
+    --bs-btn-color: #f3a81c;
+    --bs-btn-border-color: #f3a81c;
+ 
+  }
+
+

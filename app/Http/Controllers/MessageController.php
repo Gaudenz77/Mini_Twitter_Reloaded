@@ -10,16 +10,16 @@ class MessageController extends Controller
 {
 
     public function __construct()
-        {
-            $this->middleware('auth');
-        }
+    {
+        $this->middleware('auth');
+    }
 
     public function showAll() {
 
         // gets all the entries from table messages
        // and gets an array of objects as a return value.
        // we store this return value in the variable $messages
-       $messages = Message::all()->sortByDesc('created_at');
+        $messages = Message::all()->sortByDesc('created_at');
 
        // This line would output the messages in the UI/Browser
        // and stop the script execution.
@@ -35,64 +35,76 @@ class MessageController extends Controller
 
         return view('messages', ['messagesList' => $messages, 'parentId' => null]);
         
-        }
+    }
 
         public function create(Request $request) {
 
-            // we create a new Message-Object
-            $message = new Message();
-            // we set the properties title and content
-            // with the values that we got in the post-request
-            $message->title = $request->title;
-            $message->content = $request->content;
-            $message->like_count = $request->like_count;
-            $message->dislike_count = $request->dislike_count;
-            $message->user_id = $request->user()->id;
-          
-            // we save the new Message-Object in the messages
-            // table in our database
-            $message->save();
-       
-            // at the end we make a redirect to the url /messages
-            // return redirect('/messages');        
+        // we create a new Message-Object
+        $message = new Message();
+        // we set the properties title and content
+        // with the values that we got in the post-request
+        $message->title = $request->title;
+        $message->content = $request->content;
+        $message->like_count = $request->like_count;
+        $message->dislike_count = $request->dislike_count;
+        $message->user_id = $request->user()->id;
+        
+        // we save the new Message-Object in the messages
+        // table in our database
+        $message->save();
+    
+        // at the end we make a redirect to the url /messages
+        // return redirect('/messages');        
     
             return redirect('/messages');        
-        }
+    }
     
         public function reply(Request $request, $id)
-        {
-            // Retrieve the parent message
-            $parentMessage = Message::findOrFail($id);
+    {
+        // Retrieve the parent message
+        $parentMessage = Message::findOrFail($id);
 
-            // Create a new message with the parent message as the parent_id
-            $message = new Message();
-            $message->title = $request->input('title');
-            $message->content = $request->input('content');
-            $message->user_id = $request->user()->id;
-            $message->parent_id = $parentMessage->id;
-            $message->save();
+        // Create a new message with the parent message as the parent_id
+        $message = new Message();
+        $message->title = $request->input('title');
+        $message->content = $request->input('content');
+        $message->user_id = $request->user()->id;
+        $message->parent_id = $parentMessage->id;
+        $message->save();
 
-            return redirect()->back();
-            return redirect()->route('messages.reply', ['id' => $id]);
-        }
-        /* public function reply(Request $request, $id)
-        {
-            // Retrieve the parent message
-            $parentMessage = Message::findOrFail($id);
+        return redirect()->back();
+        return redirect()->route('messages.reply', ['id' => $id]);
+    }
 
-            // Create a new message with the parent message as the parent_id
-            $reply = new Message();
-            $reply->title = $request->input('title');
-            $reply->content = $request->input('content');
-            $reply->user_id = $request->user()->id;
-            $reply->parent_id = $request->input('parent_id');
-            $reply->save();
-            
-            
-            return redirect()->route('messages.reply', ['id' => $id]);
-        } */
+    public function getMessagesWithReplies()
+{
+    $messages = Message::where('parent_id', null)->get();
 
-        
+    foreach ($messages as $message) {
+        $message->replies = $this->getReplies($message);
+    }
+
+    return $messages;
+}
+
+
+
+      
+/*         public function createComment(Request $request, $messageId)
+    {
+        $comment = new Comment();
+        $comment->content = $request->content;
+        $comment->user_id = $request->user()->id;
+        $comment->message_id = $messageId;
+        $comment->save();
+        return redirect()->back();
+    }
+
+        public function showComments($messageId)
+    {
+        $message = Message::with('comments.user')->find($messageId);
+        return view('messageDetails', ['message' => $message]);
+    } */
 
     public function details($id) {
 
