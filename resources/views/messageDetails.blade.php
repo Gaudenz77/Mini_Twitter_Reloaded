@@ -20,17 +20,18 @@ ts value for section title to "Mini Twitter" (section content is used in message
 @endif    
 
 <!-- reply form start-->
+<input type="hidden" id="{{$message->id}}" value="0">
 <div id="reply-container" style="display: none;">
-  <form id="reply-form" action="{{ route('messages.reply', ['id' => $message->id]) }}" method="POST">
-      @csrf
-      <input type="hidden" name="parent_id" id="parent-id">
-      <div class="form-group">
-          <input type="text" class="form-control" id="floatingInput" name="title" placeholder="Title" id="floatingInput" required>
-          <textarea name="content" class="form-control" rows="3" placeholder="Enter your reply"></textarea>
-      </div>
-      <button type="submit" class="btn btn-primary">Reply</button>
-      <button type="button" class="btn btn-secondary" id="cancel-btn">Cancel</button>
-  </form>
+    <form id="reply-form" action="{{ route('messages.reply', ['id' => $message->id]) }}" method="POST">
+        @csrf
+        <input type="hidden" name="parent_id" id="parent-id">
+        <div class="form-group mb-3">
+            <input type="text" class="form-control mb-3" id="floatingInput" name="title" placeholder="Title" id="floatingInput" required>
+            <textarea name="content" class="form-control" rows="3" placeholder="Enter your reply"></textarea>
+        </div>
+        <button type="submit" class="btn btn-outline-primary">Reply</button>
+        <button type="button" class="btn btn-outline-secondary" id="cancel-btn">Cancel</button>
+    </form>
 </div>
 <!-- reply form end-->
 

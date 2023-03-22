@@ -3,7 +3,7 @@
 @extends('layouts.master')
 
 <!--sets value for section title to "Mini Twitter" (section title is used as yield in messages.blade.php) -->
-@section('title', 'Mini Twitter')
+@section('title', 'Mini Twitter Reloaded with LARAVEL Breeze')
 
 <!--starts section content, defines the title for the section and also defines some html for section content
 (html is between section... and endsection) section content is used as yield in messages.blade.php) -->
@@ -78,34 +78,33 @@
                 
                     {{$message->dislike_count}}     
             </div>
+<!-- reply form start-->
+            <div id="reply-container" style="display: none;">
+                <form id="reply-form" action="{{ route('messages.reply', ['id' => $message->id]) }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="parent_id" id="parent-id">
+                    <div class="form-group mb-3">
+                        <input type="text" class="form-control mb-3" id="floatingInput" name="title" placeholder="Title" id="floatingInput" required>
+                        <textarea name="content" class="form-control" rows="3" placeholder="Enter your reply"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-outline-primary">Reply</button>
+                    <button type="button" class="btn btn-outline-secondary" id="cancel-btn">Cancel</button>
+                </form>
+            </div>
+<!-- reply form end-->
             <div class="editor mb-2 py-3">
-    @if ($message->user)
+                @if ($message->user)
                 <p class="createdAt">By: <b>{{ $message->user->name }}</b> , {{$message->created_at->diffForHumans()}}</p>
-    @endif
+                @endif
             </div>
         </li>
     @empty
         <li class="messagesList">No messages yet.</li>
     @endforelse 
     </ul>
+    <div class="text-end"><b class="text-end">Date: {{date('d.m.Y')}}</b></div>
 </div>
 
-<div class="text-end"><b>Date: {{date('d.m.Y')}}</b></div>
+
 
 @endsection
-
-<!-- reply form start-->
-{{-- <div id="reply-container" style="display: block;">
-    @if ($message->id)
-    <form id="reply-form" action="{{ route('messages.reply', ['id' => $message->id]) }}" method="POST">
-        @csrf
-        <input type="hidden" name="parent_id" id="parent-id">
-        <div class="form-group mb-3">
-            <input type="text" class="form-control mb-3" id="floatingInput" name="title" placeholder="Title" id="floatingInput" required>
-            <textarea name="content" class="form-control" rows="3" placeholder="Enter your reply"></textarea>
-        </div>
-        <button type="submit" class="btn btn-outline-primary">Reply</button>
-        <button type="button" class="btn btn-outline-secondary" id="cancel-btn">Cancel</button>
-    </form>
-</div> --}}
-<!-- reply form end-->
