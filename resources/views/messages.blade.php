@@ -65,6 +65,7 @@
         <li class="messagesList {{-- bg-info mb-3 --}}mt-2">
             <b><a href="/message/{{$message->id}}">{{$message->title}}:</a></b><br>
             <p>{{ $message->content }}</p>
+        @if (Auth::check())
             <p><a href="#" class="reply-btn" data-message-id="{{ $message->id }}">Reply</a></p>
             <div class="form-icons mx-2 md-mx-auto">
                 <form action="/message/{{$message->id}}/like" method="POST" class="">
@@ -80,9 +81,11 @@
                     <input type="hidden" value="0" name="dislike_count">
                     <button type="submit" class="transparent-btn-down" style="margin-left: 15px;"><i class="fas fa-thumbs-down"></i></button>
                 </form>
-                
                     {{$message->dislike_count}}     
             </div>
+        @else
+            <p>Please <a href="{{ route('login') }}">login</a> or <a href="{{ route('register') }}">register</a><br>to reply or like/unlike messages.</p>
+        @endif
 <!-- reply form start-->
             <div id="reply-container" style="display: none;">
                 <form id="reply-form" action="{{ route('messages.reply', ['id' => $message->id]) }}" method="POST">
