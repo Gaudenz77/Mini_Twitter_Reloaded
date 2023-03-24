@@ -52,7 +52,6 @@
         <h4>Please <a href="{{ route('login') }}">login</a> or <a href="{{ route('register') }}">register</a><br>to post a message.</h4>
     @endif
 </div>
-
 <!-- Display each message -->
 <div class="col-sm-6">
     <h2 style="line-height: 50px">Recent messages:</h2>
@@ -65,7 +64,6 @@
         <li class="messagesList {{-- bg-info mb-3 --}}mt-2">
             <b><a href="/message/{{$message->id}}">{{$message->title}}:</a></b><br>
             <p>{{ $message->content }}</p>
-        @if (Auth::check())
             <p><a href="#" class="reply-btn" data-message-id="{{ $message->id }}">Reply</a></p>
             <div class="form-icons mx-2 md-mx-auto">
                 <form action="/message/{{$message->id}}/like" method="POST" class="">
@@ -83,11 +81,9 @@
                 </form>
                     {{$message->dislike_count}}     
             </div>
-        @else
-            <p>Please <a href="{{ route('login') }}">login</a> or <a href="{{ route('register') }}">register</a><br>to reply or like/unlike messages.</p>
-        @endif
 <!-- reply form start-->
             <div id="reply-container" style="display: none;">
+                @if (Auth::check())
                 <form id="reply-form" action="{{ route('messages.reply', ['id' => $message->id]) }}" method="POST">
                     @csrf
                     <input type="hidden" name="parent_id" id="parent-id">
@@ -99,6 +95,9 @@
                     <button type="button" class="btn btn-outline-secondary" id="cancel-btn">Cancel</button>
                 </form>
             </div>
+                @else
+                <p>Please <a href="{{ route('login') }}">login</a> or <a href="{{ route('register') }}">register</a><br>to reply or like/unlike messages.</p>
+                @endif
 <!-- reply form end-->
             <div class="editor mb-2 py-3">
                 @if ($message->user)
