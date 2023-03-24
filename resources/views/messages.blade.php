@@ -19,16 +19,18 @@
             </form>
             
 @else
-            <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
+            <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">{{-- Log in --}}</a>
 
             @if (Route::has('register'))
-                <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
+                <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">{{-- Register --}}</a>
 @endif
         @endauth
     </div>
 @endif
 
 <div class="col-sm-4">
+    
+    @if (Auth::check())
     <h2>Create new message: </h2>
     <form action="/create" method="post">
         <div class="form-group mb-3">
@@ -46,6 +48,9 @@
        <div class="sender text-center">
         <button type="submit" class="btn btn-circle mt-3 text-center"><i class="fa-brands fa-twitter fa-3x fa-flip" style="--fa-animation-duration: 30s; --fa-animation-iteration-count: 1;"></i></button></div>
     </form>
+    @else
+        <h4>Please <a href="{{ route('login') }}">login</a> or <a href="{{ route('register') }}">register</a><br>to post a message.</h4>
+    @endif
 </div>
 
 <!-- Display each message -->
@@ -57,7 +62,7 @@
        we call $message we print the properties (title, content
        and created_at in an <li> element -->
     @forelse($messagesList as $message)
-        <li class="messagesList">
+        <li class="messagesList {{-- bg-info mb-3 --}}mt-2">
             <b><a href="/message/{{$message->id}}">{{$message->title}}:</a></b><br>
             <p>{{ $message->content }}</p>
             <p><a href="#" class="reply-btn" data-message-id="{{ $message->id }}">Reply</a></p>

@@ -9,28 +9,28 @@ use App\Models\Message;
 class MessageController extends Controller
 {
 
-    public function __construct()
+    /* public function __construct()
     {
         $this->middleware('auth');
-    }
+    } */
 
     public function showAll() {
 
         // gets all the entries from table messages
-       // and gets an array of objects as a return value.
-       // we store this return value in the variable $messages
+        // and gets an array of objects as a return value.
+        // we store this return value in the variable $messages
         $messages = Message::all()->sortByDesc('created_at');
 
-       // This line would output the messages in the UI/Browser
-       // and stop the script execution.
-       // good for debugging ;o)
-       //dd($messages);
+        // This line would output the messages in the UI/Browser
+        // and stop the script execution.
+        // good for debugging ;o)
+        //dd($messages);
 
-       // This function retursn a view.
-       // here the blade template engine works its magic again
-       // through which we cann pass the $messages array to the view.
-       // we can pass it as an optional second paramter (
- // associative array)
+        // This function retursn a view.
+        // here the blade template engine works its magic again
+        // through which we cann pass the $messages array to the view.
+        // we can pass it as an optional second paramter (
+        // associative array)
         $messages = Message::with('user')->orderByDesc('created_at')->get();
 
         return view('messages', ['messagesList' => $messages, 'parentId' => null]);
@@ -75,37 +75,7 @@ class MessageController extends Controller
         return redirect()->back();
         return redirect()->route('messages.reply', ['id' => $id]);
     }
-
-    public function getMessagesWithReplies()
-{
-    $messages = Message::where('parent_id', null)->get();
-
-    foreach ($messages as $message) {
-        $message->replies = $this->getReplies($message);
-    }
-
-    return $messages;
-}
-
-
-
       
-/*         public function createComment(Request $request, $messageId)
-    {
-        $comment = new Comment();
-        $comment->content = $request->content;
-        $comment->user_id = $request->user()->id;
-        $comment->message_id = $messageId;
-        $comment->save();
-        return redirect()->back();
-    }
-
-        public function showComments($messageId)
-    {
-        $message = Message::with('comments.user')->find($messageId);
-        return view('messageDetails', ['message' => $message]);
-    } */
-
     public function details($id) {
 
         // ask the database for the message with the ID that we got

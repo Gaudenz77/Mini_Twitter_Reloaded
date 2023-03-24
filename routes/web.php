@@ -18,16 +18,16 @@
     Route::get('/', function () { return view('welcome');
     });
 
-    // if messages should be localhos change above to this:
+    // if messages should be localhost change above to this:
     /* Route::get('/', [MessageController::class, 'showAll']); */
 
 
     Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
     Route::post('register', 'Auth\RegisterController@register');
 
-    Route::get('/dashboard', function () {
+    /* Route::get('/dashboard', function () {
         return view('dashboard');
-    })->middleware(['auth', 'verified'])->name('dashboard');
+    })->middleware(['auth', 'verified'])->name('dashboard'); */
 
 
     Route::middleware('auth')->group(function () {
