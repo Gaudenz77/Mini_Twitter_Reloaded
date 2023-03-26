@@ -75,6 +75,24 @@ class MessageController extends Controller
         return redirect()->back();
         return redirect()->route('messages.reply', ['id' => $id]);
     }
+
+    public function getNestedMessages($parent_id = null) {
+        $messages = Message::where('parent_id', $parent_id)->get();
+        $nestedMessages = [];
+    
+        foreach ($messages as $message) {
+            $messageData = [
+                'id' => $message->id,
+                'user_id' => $message->user_id,
+                'content' => $message->content,
+                'created_at' => $message->created_at,
+                'replies' => $this->getNestedMessages($message->id)
+            ];
+            $nestedMessages[] = $messageData;
+        }
+    
+        return $nestedMessages;
+    }
       
     public function details($id) {
 

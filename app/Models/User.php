@@ -42,8 +42,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    /* public function messages()
+    public function reply()
+    {
+        return $this->belongsTo(Reply::class);
+    } 
+
+    public function messages()
     {
     return $this->hasMany(Message::class);
-    } */
+    }
 }

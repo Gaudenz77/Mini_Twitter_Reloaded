@@ -12,4 +12,8 @@ class Reply extends Model
     {
         return $this->belongsTo(Reply::class);
     } */
+    public function messages()
+    {
+    return $this->hasMany(Message::class);
+    }
 }
