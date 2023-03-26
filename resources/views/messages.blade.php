@@ -12,6 +12,7 @@
 @if (Route::has('login'))
     <div class="col-sm-2">
         @auth
+        <p>Logged in as: <b>{{ Auth::user()->name}}</b> </p>
             <a href="{{ url('/dashboard') }}">Dashboard</a>
             <form action="{{ route('logout') }}" method="POST" class="inline">
                 @csrf
@@ -32,6 +33,7 @@
     
     @if (Auth::check())
     <h2>Create new message: </h2>
+    {{-- <p>Logged in as: {{ Auth::user()->name }}</p> --}}
     <form action="/create" method="post">
         <div class="form-group mb-3">
             <input type="text" class="form-control" id="floatingInput" name="title" placeholder="Title" id="floatingInput" required>
@@ -64,6 +66,7 @@
         <li class="messagesList {{-- bg-info mb-3 --}}mt-2">
             <b><a href="/message/{{$message->id}}">{{$message->title}}:</a></b><br>
             <p>{{ $message->content }}</p>
+            <p>{{ $message->parentId }}</p>
             <p><a href="#" class="reply-btn" data-message-id="{{ $message->id }}">Reply</a></p>
             <div class="form-icons mx-2 md-mx-auto">
                 <form action="/message/{{$message->id}}/like" method="POST" class="">
@@ -88,7 +91,7 @@
                     @csrf
                     <input type="hidden" name="parent_id" id="parent-id">
                     <div class="form-group mb-3">
-                        <input type="text" class="form-control mb-3" id="floatingInput" name="title" placeholder="Title" id="floatingInput" required>
+                        <input type="text" class="form-control mb-3" id="floatingInput" name="title" placeholder="Title" id="floatingInput" required>{{-- {{ $message->id }} --}}
                         <textarea name="content" class="form-control" rows="3" placeholder="Enter your reply"></textarea>
                     </div>
                     <button type="submit" class="btn btn-outline-primary">Reply</button>
@@ -111,7 +114,5 @@
     </ul>
     <div class="text-end"><b class="text-end">Date: {{date('d.m.Y')}}</b></div>
 </div>
-
-
 
 @endsection

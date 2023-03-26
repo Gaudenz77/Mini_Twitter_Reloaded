@@ -37,6 +37,16 @@ class MessageController extends Controller
         
     }
 
+    /* NESTED ALL START------------------------------------------------*/
+    /* public function showAll() {
+        $messages = Message::with('user')->orderByDesc('created_at')->get();
+    
+        $nestedMessages = $this->getNestedReplies($messages);
+    
+        return view('messages', ['messagesList' => $nestedMessages, 'parentId' => null]);
+    } */
+    /*NESTED ALL END----------------------------------------------------------------*/
+
         public function create(Request $request) {
 
         // we create a new Message-Object
@@ -75,24 +85,20 @@ class MessageController extends Controller
         return redirect()->back();
         return redirect()->route('messages.reply', ['id' => $id]);
     }
+/*NESTED START----------------------------------------------------------------*/
+    /* public function getNestedReplies($messages, $parentId = null) {
+    $nestedMessages = [];
 
-    public function getNestedMessages($parent_id = null) {
-        $messages = Message::where('parent_id', $parent_id)->get();
-        $nestedMessages = [];
-    
         foreach ($messages as $message) {
-            $messageData = [
-                'id' => $message->id,
-                'user_id' => $message->user_id,
-                'content' => $message->content,
-                'created_at' => $message->created_at,
-                'replies' => $this->getNestedMessages($message->id)
-            ];
-            $nestedMessages[] = $messageData;
+            if ($message->parent_id === $parentId) {
+                $message->replies = $this->getNestedReplies($messages, $message->id);
+                $nestedMessages[] = $message;
+            }
         }
-    
+
         return $nestedMessages;
-    }
+    } */
+/*NESTED END----------------------------------------------------------------*/
       
     public function details($id) {
 
