@@ -16,7 +16,7 @@ ts value for section title to "Mini Twitter" (section content is used in message
 <p><a href="#" class="reply-btn" data-message-id="{{ $message->id }}">Reply</a></p>
 
 @if ($message->user)
-<p> <b>{{ $message->user->name }}</b></p>
+<p> <b>Created by: {{ $message->user->name }}</b></p>
 @endif    
 
 <!-- reply form start-->

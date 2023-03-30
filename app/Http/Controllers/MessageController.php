@@ -47,27 +47,34 @@ class MessageController extends Controller
     } */
     /*NESTED ALL END----------------------------------------------------------------*/
 
-        public function create(Request $request) {
-
-        // we create a new Message-Object
+    public function create(Request $request)
+    {
+        // Define validation rules for the title, content, like_count, and dislike_count fields
+        $rules = [
+            'title' => 'required|max:255',
+            'content' => 'required',
+            'like_count' => 'nullable|integer|min:0',
+            'dislike_count' => 'nullable|integer|min:0',
+        ];
+    
+        // Validate the user input against the defined rules
+        $validatedData = $request->validate($rules);
+    
+        // Create a new Message object with the validated data and the user's ID
         $message = new Message();
-        // we set the properties title and content
-        // with the values that we got in the post-request
-        $message->title = $request->title;
-        $message->content = $request->content;
-        $message->like_count = $request->like_count;
-        $message->dislike_count = $request->dislike_count;
+        $message->title = $validatedData['title'];
+        $message->content = $validatedData['content'];
+        $message->like_count = $validatedData['like_count'] ?? 0;
+        $message->dislike_count = $validatedData['dislike_count'] ?? 0;
         $message->user_id = $request->user()->id;
-        
-        // we save the new Message-Object in the messages
-        // table in our database
+    
+        // Save the new Message object to the database
         $message->save();
     
-        // at the end we make a redirect to the url /messages
-        // return redirect('/messages');        
-    
-            return redirect('/messages');        
+        // Redirect to the messages page
+        return redirect('/messages');
     }
+    
     
         public function reply(Request $request, $id)
     {
