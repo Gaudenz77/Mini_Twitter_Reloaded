@@ -12,11 +12,11 @@
 @if (Route::has('login'))
     <div class="col-sm-2">
         @auth
-        <p>Logged in as: <b>{{ Auth::user()->name}}</b> </p>
+        <p style="line-height: 50px">Logged in as: <b>{{ Auth::user()->name}}</b> </p>
             <a href="{{ url('/dashboard') }}">Dashboard</a>
-            <form action="{{ route('logout') }}" method="POST" class="inline">
+            <form class="text-center" action="{{ route('logout') }}" method="POST" class="inline">
                 @csrf
-                <br><button type="submit" class="btn btn-circlesmall mt-3 text-center"><i class="fa-solid fa-right-from-bracket fa-2x fa-flip" style="--fa-animation-iteration-count: 1;"></i></button>
+                <br><button type="submit" class="btn btn-circlesmall mt-3"><i class="fa-solid fa-right-from-bracket fa-2x fa-flip" style="--fa-animation-iteration-count: 1;"></i></button>
             </form>
             
 @else
@@ -32,7 +32,7 @@
 <div class="col-sm-4">
     
     @if (Auth::check())
-    <h2>Create new message: </h2>
+    <h2 style="line-height: 50px">Create new message: </h2>
     {{-- <p>Logged in as: {{ Auth::user()->name }}</p> --}}
     <form action="/create" method="post">
         <div class="form-group mb-3">
