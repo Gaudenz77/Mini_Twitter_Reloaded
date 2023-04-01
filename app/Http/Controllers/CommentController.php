@@ -29,27 +29,27 @@ class CommentController extends Controller
     /*COMMENTCONTROLLER-METHOD END----------------------------------------------------------------*/
 
     public function storeComment(Request $request, $messageId)
-{   
-    // Validate the request data
-    $validated = $request->validate([
-        'content' => 'required|string',
-    ]);
+    {   
+        // Validate the request data
+        $validated = $request->validate([
+            'content' => 'required|string',
+        ]);
 
-    // Create a new comment
-    $comment = new Comment([
-        'comment' => $validated['content']
-    ]);
+        // Create a new comment
+        $comment = new Comment([
+            'comment' => $validated['content']
+        ]);
+            
+        $comment->user_id = auth()->user()->id;
+        $comment->message_id = $messageId;
+        $comment->save();
         
-    $comment->user_id = auth()->user()->id;
-    $comment->message_id = $messageId;
-    $comment->save();
-    
-    // Retrieve the message and its comments
-    $message = Message::find($messageId);
-    $comments = $message->comments()->orderBy('created_at', 'desc')->get();
-    
-    return view('messageDetails', ['message' => $message, 'comments' => $comments]);
-}
+        // Retrieve the message and its comments
+        $message = Message::find($messageId);
+        $comments = $message->comments()->orderBy('created_at', 'desc')->get();
+        
+        return view('messageDetails', ['message' => $message, 'comments' => $comments]);
+    }
 
 
  

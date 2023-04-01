@@ -65,7 +65,7 @@
         <li class="messagesList {{-- bg-info mb-3 --}}mt-2">
             <b><a href="/message/{{$message->id}}">{{$message->title}}:</a></b><br>
             <p>{{ $message->content }}</p>
-            <p>{{ $message->parentId }}</p>
+            {{-- <p>{{ $message->parentId }}</p> --}}
             
             <div class="form-icons mx-2 md-mx-auto">
                 <form action="/message/{{$message->id}}/like" method="POST" class="">

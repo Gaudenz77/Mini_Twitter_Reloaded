@@ -26,7 +26,7 @@ ts value for section title to "Mini Twitter" (section content is used in message
     <form id="reply-form" action="{{ route('comments.store', ['messageId' => $message->id]) }}" method="POST">
         @csrf
         <input type="hidden" name="parent_id" id="parent-id">
-        <div class="form-group mb-3">
+        <div class="form-group col-4 mb-3">
         <label for="content">Comment:</label>
         <textarea name="content" id="content" class="form-control" rows="3" placeholder="Enter your comment" required></textarea>
         </div>

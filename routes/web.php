@@ -5,8 +5,6 @@
     use App\Http\Controllers\MessageController;
     use App\Http\Controllers\CommentController;
 
-
-    
     /*
     |--------------------------------------------------------------------------
     | Web Routes
@@ -24,14 +22,12 @@
     // if messages should be localhost change above to this:
     /* Route::get('/', [MessageController::class, 'showAll']); */
 
-
     Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
     Route::post('register', 'Auth\RegisterController@register');
 
     /* Route::get('/dashboard', function () {
         return view('dashboard');
     })->middleware(['auth', 'verified'])->name('dashboard'); */
-
 
     Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -55,7 +51,6 @@ Route::post('/email/verification-notification', function (Request $request) {
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send'); */
 
-
     require __DIR__.'/auth.php';
 
     Route::get('/messages', [MessageController::class, 'showAll']);
@@ -69,11 +64,6 @@ Route::post('/email/verification-notification', function (Request $request) {
     Route::post('/message/{id}/like', [MessageController::class, 'like']);
 
     Route::post('/message/{id}/dislike', [MessageController::class, 'dislike']);
-
-    /* Route::post('/messages/reply/{id}', [MessageController::class, 'reply'])->name('messages.reply'); */
-
-    /* Route::post('/messages/{message}/comments', [MessageController::class, 'storeComment'])->name('comments.store'); */
-
 
     Route::post('/messages/{messageId}/comments', [CommentController::class, 'storeComment'])->name('comments.store');
 

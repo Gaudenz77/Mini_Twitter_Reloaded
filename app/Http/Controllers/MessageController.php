@@ -40,16 +40,6 @@ class MessageController extends Controller
         
     }
 
-    /* NESTED ALL START------------------------------------------------*/
-    /* public function showAll() {
-        $messages = Message::with('user')->orderByDesc('created_at')->get();
-    
-        $nestedMessages = $this->getNestedReplies($messages);
-    
-        return view('messages', ['messagesList' => $nestedMessages, 'parentId' => null]);
-    } */
-    /*NESTED ALL END----------------------------------------------------------------*/
-
     public function create(Request $request)
     {
         // Define validation rules for the title, content, like_count, and dislike_count fields
@@ -95,20 +85,6 @@ class MessageController extends Controller
         return redirect()->back();
         return redirect()->route('messages.reply', ['id' => $id]);
     }
-/*NESTED START----------------------------------------------------------------*/
-    /* public function getNestedReplies($messages, $parentId = null) {
-    $nestedMessages = [];
-
-        foreach ($messages as $message) {
-            if ($message->parent_id === $parentId) {
-                $message->replies = $this->getNestedReplies($messages, $message->id);
-                $nestedMessages[] = $message;
-            }
-        }
-
-        return $nestedMessages;
-    } */
-/*NESTED END----------------------------------------------------------------*/
       
     public function details($id) {
 
@@ -152,23 +128,5 @@ class MessageController extends Controller
         $message->increment('dislike_count');
         return redirect('/messages');
     }
-
-/*COMMENTCONTROLLER-METHOD END----------------------------------------------------------------*/
-
-    /* public function storeComment(Message $message, Request $request)
-    {
-        $comment = new Comment([
-            'content' => $request->input('content')
-        ]);
-        
-        $comment->user_id = auth()->user()->id;
-        $comment->message_id = $message->id;
-        $comment->save();
-
-        return view('messageDetails', ['message' => $message]);
-    } */
-
-
-
 
 }
