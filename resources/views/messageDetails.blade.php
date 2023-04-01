@@ -13,26 +13,41 @@ ts value for section title to "Mini Twitter" (section content is used in message
 
 <h4><b>{{$message->title}}</b></h4>
 <h3>{{$message->content}}</h3>
-<p><a href="#" class="reply-btn" data-message-id="{{ $message->id }}">Reply</a></p>
+<p><a href="#" class="reply-btn" data-message-id="{{ $message->id }}">Comment</a></p>
 
 @if ($message->user)
 <p> <b>Created by: {{ $message->user->name }}</b></p>
 @endif    
 
-<!-- reply form start-->
+<!-- Comment form start-->
 <input type="hidden" id="{{$message->id}}" value="0">
 <div id="reply-container" style="display: none;">
-    <form id="reply-form" action="{{ route('messages.reply', ['id' => $message->id]) }}" method="POST">
+    @if (Auth::check())
+    <form id="reply-form" action="{{ route('comments.store', ['messageId' => $message->id]) }}" method="POST">
         @csrf
         <input type="hidden" name="parent_id" id="parent-id">
         <div class="form-group mb-3">
-            <input type="text" class="form-control mb-3" id="floatingInput" name="title" placeholder="Title" id="floatingInput" required>
-            <textarea name="content" class="form-control" rows="3" placeholder="Enter your reply"></textarea>
+        <label for="content">Comment:</label>
+        <textarea name="content" id="content" class="form-control" rows="3" placeholder="Enter your comment" required></textarea>
         </div>
-        <button type="submit" class="btn btn-outline-primary">Reply</button>
+        <button type="submit" class="btn btn-outline-primary">Comment</button>
         <button type="button" class="btn btn-outline-secondary" id="cancel-btn">Cancel</button>
     </form>
 </div>
+@forelse ($message->comments as $comment)
+    <div class="comment">
+        <div class="comment-info">
+            <span class="comment-author">{{ $comment->user->name }}</span>
+            <span class="comment-date">{{ $comment->created_at->diffForHumans() }}</span>
+        </div>
+        <div class="comment-content">
+            {{ $comment->comment }}
+        </div>
+    </div>
+    @empty
+    <p>No comments yet!</p>
+@endforelse
+@endforelse
 <!-- reply form end-->
 
 <form action="/message/{{$message->id}}" method="post">

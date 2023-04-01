@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Models\Message;
 
+/* use App\Models\Comment; */
+
+
 class MessageController extends Controller
 {
 
@@ -149,4 +152,23 @@ class MessageController extends Controller
         $message->increment('dislike_count');
         return redirect('/messages');
     }
+
+/*COMMENTCONTROLLER-METHOD END----------------------------------------------------------------*/
+
+    /* public function storeComment(Message $message, Request $request)
+    {
+        $comment = new Comment([
+            'content' => $request->input('content')
+        ]);
+        
+        $comment->user_id = auth()->user()->id;
+        $comment->message_id = $message->id;
+        $comment->save();
+
+        return view('messageDetails', ['message' => $message]);
+    } */
+
+
+
+
 }

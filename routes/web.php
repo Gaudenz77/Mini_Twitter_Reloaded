@@ -3,7 +3,10 @@
     use App\Http\Controllers\ProfileController;
     use Illuminate\Support\Facades\Route;
     use App\Http\Controllers\MessageController;
+    use App\Http\Controllers\CommentController;
 
+
+    
     /*
     |--------------------------------------------------------------------------
     | Web Routes
@@ -38,7 +41,7 @@
 
     // Email Verification Routes...
 // email verification routes must be defined before the auth route
-Route::get('/email/verify', function () {
+/* Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware(['auth'])->name('verification.notice');
 
@@ -50,7 +53,7 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
     return back()->with('message', 'Verification link sent!');
-})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send'); */
 
 
     require __DIR__.'/auth.php';
@@ -67,14 +70,13 @@ Route::post('/email/verification-notification', function (Request $request) {
 
     Route::post('/message/{id}/dislike', [MessageController::class, 'dislike']);
 
-    Route::post('/messages/reply/{id}', [MessageController::class, 'reply'])->name('messages.reply');
+    /* Route::post('/messages/reply/{id}', [MessageController::class, 'reply'])->name('messages.reply'); */
 
-    /* Route::get('/messages/reply/{id}', [MessageController::class, 'show'])->name('messages.show'); */
-
-
+    /* Route::post('/messages/{message}/comments', [MessageController::class, 'storeComment'])->name('comments.store'); */
 
 
-    /* Route::get('/messages', 'MessageController@messages')->name('messages'); */
+    Route::post('/messages/{messageId}/comments', [CommentController::class, 'storeComment'])->name('comments.store');
+
 
 
 

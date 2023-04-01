@@ -1,4 +1,3 @@
-
 <!--extend layout master.blade.php -->
 @extends('layouts.master')
 
@@ -67,7 +66,7 @@
             <b><a href="/message/{{$message->id}}">{{$message->title}}:</a></b><br>
             <p>{{ $message->content }}</p>
             <p>{{ $message->parentId }}</p>
-            <p><a href="#" class="reply-btn" data-message-id="{{ $message->id }}">Reply</a></p>
+            
             <div class="form-icons mx-2 md-mx-auto">
                 <form action="/message/{{$message->id}}/like" method="POST" class="">
                 @csrf
@@ -84,24 +83,22 @@
                 </form>
                     {{$message->dislike_count}}     
             </div>
-<!-- reply form start-->
-            <div id="reply-container" style="display: none;">
-                @if (Auth::check())
-                <form id="reply-form" action="{{ route('messages.reply', ['id' => $message->id]) }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="parent_id" id="parent-id">
-                    <div class="form-group mb-3">
-                        <input type="text" class="form-control mb-3" id="floatingInput" name="title" placeholder="Title" id="floatingInput" required>{{-- {{ $message->id }} --}}
-                        <textarea name="content" class="form-control" rows="3" placeholder="Enter your reply"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-outline-primary">Reply</button>
-                    <button type="button" class="btn btn-outline-secondary" id="cancel-btn">Cancel</button>
-                </form>
+<!-- comment display start-->
+<!-- link to comment page-->
+<b><a href="/message/{{$message->id}}">Comments:</a></b><br>
+     @forelse ($message->comments as $comment)
+        <div class="comment">
+             <div class="comment-info">
+                <span class="comment-author">{{ $comment->user->name }}</span>
+                <span class="comment-date">{{ $comment->created_at->diffForHumans() }}</span>
             </div>
-                @else
-                <p>Please <a href="{{ route('login') }}">login</a> or <a href="{{ route('register') }}">register</a><br>to reply or like/unlike messages.</p>
-                @endif
-<!-- reply form end-->
+            <div class="comment-content">
+            {{ $comment->comment }}
+            </div> 
+        </div>
+        @empty
+        <p>No comments yet!</p>
+    @endforelse  
             <div class="editor mb-2 py-3">
                 @if ($message->user)
                 <p class="createdAt">By: <b>{{ $message->user->name }}</b> , {{$message->created_at->diffForHumans()}}</p>
