@@ -14,8 +14,8 @@
             <p style="line-height: 50px">Logged in as: <b>{{ Auth::user()->name}}</b> </p>
             <a href="{{ url('/dashboard') }}">Dashboard</a>
             <form class="text-center" action="{{ route('logout') }}" method="POST" class="inline">
-                @csrf
-                <br><button type="submit" class="btn btn-circlesmall mt-3"><i class="fa-solid fa-right-from-bracket fa-2x fa-flip" style="--fa-animation-iteration-count: 1;"></i></button>
+                @csrf<br>
+                <button type="submit" class="btn btn-circlesmall mt-3"><i class="fa-solid fa-right-from-bracket fa-2x fa-flip" style="--fa-animation-iteration-count: 1;"></i></button>
             </form>
         @else
             <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">{{-- Log in --}}</a>
@@ -26,32 +26,9 @@
     </div>
 @endif
 
-<div class="col-sm-4">
-    @if (Auth::check())
-    <h2 style="line-height: 50px">Create new message: </h2>
-    {{-- <p>Logged in as: {{ Auth::user()->name }}</p> --}}
-    <form action="/create" method="post">
-        <div class="form-group mb-3">
-            <input type="text" class="form-control" id="floatingInput" name="title" placeholder="Title" id="floatingInput" required>
-            
-        </div>
-       <div class="form-group">
-        <textarea class="form-control" name="content" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px" required></textarea>
-        
-        <input type="hidden" value="0" name="like_count">
-        <input type="hidden" value="0" name="dislike_count">
-       </div>
-       <!-- this blade directive is necessary for all form posts somewhere in between the form tags -->
-    @csrf
-       <div class="sender text-center">
-        <button type="submit" class="btn btn-circle mt-3 text-center"><i class="fa-brands fa-twitter fa-3x fa-flip" style="--fa-animation-duration: 30s; --fa-animation-iteration-count: 1;"></i></button></div>
-    </form>
-    @else
-        <h4>Please <a href="{{ route('login') }}">login</a> or <a href="{{ route('register') }}">register</a><br>to post a message.</h4>
-    @endif
-</div>
+<!-- display plus comment col start -->
 <!-- Display each message -->
-<div class="col-sm-6">
+<div class="col-sm-6 order-2">
     <h2 style="line-height: 50px">Recent messages:</h2>
     <ul>
     <!-- loops through the $messages, that this blade template
@@ -111,5 +88,29 @@
     </ul>
     <div class="text-end"><b class="text-end">Date: {{date('d.m.Y')}}</b></div>
 </div>
+<!-- display plus comment col end -->
 
+<!-- message form start -->
+<div class="col-sm-4 order-1">
+    @if (Auth::check())
+    <h2 style="line-height: 50px">Create new message: </h2>
+    <form action="/create" method="post">
+        <div class="form-group mb-3">
+            <input type="text" class="form-control" id="floatingInput" name="title" value="{{-- {{$message->title}} --}}" placeholder="Title" id="floatingInput" required>
+        </div>
+       <div class="form-group">
+        <textarea class="form-control" name="content" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px" required>{{-- {{ $message->content }} --}}</textarea>
+        <input type="hidden" value="0" name="like_count">
+        <input type="hidden" value="0" name="dislike_count">
+       </div>
+       <!-- this blade directive is necessary for all form posts somewhere in between the form tags -->
+    @csrf
+       <div class="sender text-center">
+        <button type="submit" class="btn btn-circle mt-3 text-center"><i class="fa-brands fa-twitter fa-3x fa-flip" style="--fa-animation-duration: 30s; --fa-animation-iteration-count: 1;"></i></button></div>
+    </form>
+    @else
+        <h4>Please <a href="{{ route('login') }}">login</a> or <a href="{{ route('register') }}">register</a><br>to post a message.</h4>
+    @endif
+</div>
+<!-- message form end -->
 @endsection

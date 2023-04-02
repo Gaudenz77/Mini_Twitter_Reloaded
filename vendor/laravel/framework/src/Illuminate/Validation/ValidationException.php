@@ -41,7 +41,7 @@ class ValidationException extends Exception
      *
      * @var string
      */
-    public  o;
+    protected $redirectTo = '/login';
 
     /**
      * Create a new exception instance.
