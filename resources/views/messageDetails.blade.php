@@ -34,7 +34,7 @@ ts value for section title to "Mini Twitter" (section content is used in message
     <form id="reply-form" action="{{ route('comments.store', ['messageId' => $message->id]) }}" method="POST">
         @csrf
         <input type="hidden" name="parent_id" id="parent-id">
-    <div class="form-group col-4 mb-3">
+    <div class="form-group col-12 col-lg-4 mb-3">
         <textarea name="content" id="content" class="form-control" rows="3" placeholder="Enter your comment" required></textarea>
     </div>
         <button type="submit" class="btn btn-outline-primary">Comment</button>
@@ -53,14 +53,17 @@ ts value for section title to "Mini Twitter" (section content is used in message
             <span class="comment-date">{{ $comment->created_at->diffForHumans() }}</span>
         </figcaption>
     </figure>
-    @empty
-    <p>No comments yet!</p> 
+@empty
+<p>No comments yet!</p> 
 @endforelse
+
+<a href="/messages" class="btn btn-circlesmall mt-3 text-center"><i class="fa-solid fa-chevron-left fa-2x fa-flip"></i></a>
+
 @auth
-<form action="/message/{{$message->id}}" method="post">
+<form class="text-center" action="/message/{{$message->id}}" method="post">
     @csrf
     @method('delete')
-    <button type="submit" class="btn btn-circlesmall mt-3 text-center"><i class="fa-solid fa-trash-can fa-2x fa-flip" style="--fa-animation-duration: 30s; --fa-animation-iteration-count: 1;"></i></button>
+    <button type="submit" class="btn btn-circlesmall mt-3 text-center"><i class="fa-solid fa-trash-can fa-2x" style="--fa-animation-duration: 30s; --fa-animation-iteration-count: 1;"></i></button>
 </form>   
 @endauth
 
