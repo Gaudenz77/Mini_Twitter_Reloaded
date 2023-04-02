@@ -11,25 +11,22 @@
 @if (Route::has('login'))
     <div class="col-sm-2">
         @auth
-        <p style="line-height: 50px">Logged in as: <b>{{ Auth::user()->name}}</b> </p>
+            <p style="line-height: 50px">Logged in as: <b>{{ Auth::user()->name}}</b> </p>
             <a href="{{ url('/dashboard') }}">Dashboard</a>
             <form class="text-center" action="{{ route('logout') }}" method="POST" class="inline">
                 @csrf
                 <br><button type="submit" class="btn btn-circlesmall mt-3"><i class="fa-solid fa-right-from-bracket fa-2x fa-flip" style="--fa-animation-iteration-count: 1;"></i></button>
             </form>
-            
-@else
+        @else
             <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">{{-- Log in --}}</a>
-
             @if (Route::has('register'))
-                <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">{{-- Register --}}</a>
-@endif
-        @endauth
+            <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">{{-- Register --}}</a>
+        @endif
+    @endauth
     </div>
 @endif
 
 <div class="col-sm-4">
-    
     @if (Auth::check())
     <h2 style="line-height: 50px">Create new message: </h2>
     {{-- <p>Logged in as: {{ Auth::user()->name }}</p> --}}
@@ -63,10 +60,10 @@
        and created_at in an <li> element -->
     @forelse($messagesList as $message)
         <li class="messagesList {{-- bg-info mb-3 --}}mt-2">
-            <b><a href="/message/{{$message->id}}">{{$message->title}}:</a></b><br>
-            <p>{{ $message->content }}</p>
+            <a href="/message/{{$message->id}}">
+                <b>{{$message->title}}:</a></b><br>
+                <p>{{ $message->content }}</p>
             {{-- <p>{{ $message->parentId }}</p> --}}
-            
             <div class="form-icons mx-2 md-mx-auto">
                 <form action="/message/{{$message->id}}/like" method="POST" class="">
                 @csrf
@@ -74,34 +71,37 @@
                     <input type="hidden" value="0" name="like_count">
                     <button type="submit" class="transparent-btn-up" ><i class="fas fa-thumbs-up"></i></button>
                 </form>
-                    {{$message->like_count}}
+                {{$message->like_count}}
                 <form action="/message/{{$message->id}}/dislike" method="POST" class="">
                     @csrf
                     <input type="hidden" name="message_id" value="{{$message->id}}">
                     <input type="hidden" value="0" name="dislike_count">
                     <button type="submit" class="transparent-btn-down" style="margin-left: 15px;"><i class="fas fa-thumbs-down"></i></button>
                 </form>
-                    {{$message->dislike_count}}     
-            </div>
+                {{$message->dislike_count}}     
+            </div><br>
 <!-- comment display start-->
 <!-- link to comment page-->
-<b><a href="/message/{{$message->id}}">Comments:</a></b><br>
+    @if (Auth::check())
+        <a href="/message/{{$message->id}}">Authenticated users can write 
+    @endif
+    <b>Comments:</b></a><br>
      @forelse ($message->comments as $comment)
-        <div class="comment">
-             <div class="comment-info">
-                <span class="comment-author">{{ $comment->user->name }}</span>
-                <span class="comment-date">{{ $comment->created_at->diffForHumans() }}</span>
-            </div>
-            <div class="comment-content">
-            {{ $comment->comment }}
-            </div> 
-        </div>
+        <figure class="comment">
+            <blockquote class="comment-content">
+                {{ $comment->comment }}
+            </blockquote> 
+             <figcaption class="comment-info blockquote-footer">
+                <span class="comment-author"><i><b>{{ $comment->user->name }}</i></b></span>
+                <span class="comment-date">, {{ $comment->created_at->diffForHumans() }}</span>
+            </figcaption>
+        </figure>
         @empty
         <p>No comments yet!</p>
     @endforelse  
             <div class="editor mb-2 py-3">
                 @if ($message->user)
-                <p class="createdAt">By: <b>{{ $message->user->name }}</b> , {{$message->created_at->diffForHumans()}}</p>
+                <p class="createdAt"><i><b>{{ $message->user->name }}</i></b>, {{$message->created_at->diffForHumans()}}</p>
                 @endif
             </div>
         </li>
