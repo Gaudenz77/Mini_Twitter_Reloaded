@@ -75,6 +75,18 @@ body.dark-mode .titlelogo {
     box-shadow: -3px 3px 3px 3px rgb(141, 141, 141);
 }
 
+.btn-circlesmallest {
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 90%;
+    padding: 3px 3px;
+    border-radius: 50%;
+    color:#087990;
+    text-align: center;
+    margin-bottom: 5px; 
+    box-shadow: -3px 3px 3px 3px rgb(141, 141, 141);
+}
+
 body.dark-mode .btn-circlesmall {
     color: #f3a81c;
 }

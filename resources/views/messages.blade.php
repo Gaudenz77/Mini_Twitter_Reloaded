@@ -17,6 +17,7 @@
                 @csrf<br>
                 <button type="submit" class="btn btn-circlesmall mt-3"><i class="fa-solid fa-right-from-bracket fa-2x fa-flip" style="--fa-animation-iteration-count: 1;"></i></button>
             </form>
+            <x-button-test />
         @else
             <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">{{-- Log in --}}</a>
             @if (Route::has('register'))
@@ -77,6 +78,13 @@
         <p>No comments yet!</p>
     @endforelse  
             <div class="editor mb-2 py-3">
+                @auth
+                <form class="text-center" action="/message/{{$message->id}}" method="post">
+                    @csrf
+                    @method('delete')
+                    <button type="submit" class="btn btn-circlesmallest mt-3"><i class="fa-solid fa-trash-can" style="--fa-animation-duration: 30s; --fa-animation-iteration-count: 1;"></i></button>
+                </form>   
+                @endauth
                 @if ($message->user)
                 <p class="createdAt"><i><b>{{ $message->user->name }}</i></b>, {{$message->created_at->diffForHumans()}}</p>
                 @endif

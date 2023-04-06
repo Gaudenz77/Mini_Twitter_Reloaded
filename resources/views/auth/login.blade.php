@@ -47,3 +47,8 @@
         </div>
     </form>
 </x-guest-layout>
+<div class="container guestOwn">
+    <div class="row">
+        <div class="col-sm-6 bg-info"></div>
+    </div>
+</div>
